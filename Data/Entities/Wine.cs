@@ -16,21 +16,21 @@ public class Wine
         get => _stock;
         set
         {
-            if (value < 0) throw new ArgumentException("El stock no puede ser negativo.");
+            if (value < 0) throw new ArgumentException("The stock cannot be negative.");
             _stock = value;
         }
     }
 
     public void AddStock(int amount)
     {
-        if (amount <= 0) throw new ArgumentException("La cantidad a añadir debe ser mayor a 0.");
+        if (amount <= 0) throw new ArgumentException("The quantity to add must be greater than 0.");
         Stock += amount;
     }
 
     public void RemoveStock(int amount)
     {
-        if (amount <= 0) throw new ArgumentException("La cantidad a reducir debe ser mayor a 0.");
-        if (Stock - amount < 0) throw new InvalidOperationException("No hay suficiente stock disponible.");
+        if (amount <= 0) throw new ArgumentException("The quantity to reduce must be greater than 0.");
+        if (Stock - amount < 0) throw new InvalidOperationException("There is not enough stock available.");
         Stock -= amount;
     }
 

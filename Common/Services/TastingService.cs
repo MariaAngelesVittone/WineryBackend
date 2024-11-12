@@ -23,7 +23,7 @@ public class TastingService : ITastingService
 
             if (tastings.Any(x => x.Name.Equals(tastingDto.Name, StringComparison.CurrentCultureIgnoreCase)))
             {
-                throw new InvalidOperationException("La cata ya se encuentra registrada.");
+                throw new InvalidOperationException("The tasting is already registered.");
             }
 
             List<Wine> wines = _wineRepository.GetWinesByIds(tastingDto.WineIds);
@@ -40,7 +40,7 @@ public class TastingService : ITastingService
         }
         catch (Exception ex)
         {
-            throw new InvalidOperationException("Ocurrió un error al registrar la cata.", ex);
+            throw new InvalidOperationException("An error occurred while registering the tasting.", ex);
         }
     }
 

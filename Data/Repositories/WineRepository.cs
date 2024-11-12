@@ -37,7 +37,7 @@ public class WineRepository : IWineRepository
 
         if (wine == null)
         {
-            throw new InvalidOperationException("El vino especificado no existe.");
+            throw new InvalidOperationException("The specified wine does not exist.");
         }
 
         wine.Stock = newStock;

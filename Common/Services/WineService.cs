@@ -21,14 +21,14 @@ public class WineService : IWineService
 
             if (wines.Count == 0)
             {
-                throw new InvalidOperationException("El inventario de vinos está vacío.");
+                throw new InvalidOperationException("The wine inventory is empty.");
             }
 
             return wines;
         }
         catch (Exception ex)
         {
-            throw new InvalidOperationException("Ocurrió un error al consultar el inventario de vinos.", ex);
+            throw new InvalidOperationException("An error occurred while fetching the wine inventory.", ex);
         }
     }
 
@@ -40,7 +40,7 @@ public class WineService : IWineService
 
             if (inventory.Any(x => x.Name.Equals(wineDTO.Name, StringComparison.CurrentCultureIgnoreCase)))
             {
-                throw new InvalidOperationException("El vino que quieres agregar ya se encuentra en el inventario.");
+                throw new InvalidOperationException("The wine you want to add is already in the inventory.");
             }
 
             Wine newWine = new Wine
@@ -58,7 +58,7 @@ public class WineService : IWineService
         }
         catch (Exception ex)
         {
-            throw new InvalidOperationException("Ocurrió un error al agregar un vino al inventario.", ex);
+            throw new InvalidOperationException("An error occurred while adding a wine to the inventory.", ex);
         }
     }
 
@@ -68,21 +68,21 @@ public class WineService : IWineService
         {
             if (string.IsNullOrEmpty(variety))
             {
-                throw new InvalidOperationException("Debe indicar la variedad del vino.");
+                throw new InvalidOperationException("You must specify the wine variety.");
             }
 
             var wines = _wineRepository.GetWinesByVariety(variety);
 
             if (wines.Count == 0)
             {
-                throw new InvalidOperationException("No se encuentra en el inventario un vino de esa variedad.");
+                throw new InvalidOperationException("A wine of that variety is not found in the inventory.");
             }
 
             return wines;
         }
         catch (Exception ex)
         {
-            throw new InvalidOperationException("Ocurrió un error al consultar el vino.", ex);
+            throw new InvalidOperationException("An error occurred while querying the wine.", ex);
         }
     }
 
@@ -92,14 +92,14 @@ public class WineService : IWineService
         {
             if (newStock < 0)
             {
-                throw new ArgumentException("El stock no puede ser negativo.");
+                throw new ArgumentException("The stock cannot be negative.");
             }
 
             _wineRepository.UpdateStockById(wineId, newStock);
         }
         catch (Exception ex)
         {
-            throw new InvalidOperationException("Ocurrió un error al actualizar el stock del vino.", ex);
+            throw new InvalidOperationException("An error occurred while updating the wine stock.", ex);
         }
     }
 }

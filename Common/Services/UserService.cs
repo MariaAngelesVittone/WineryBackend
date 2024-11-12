@@ -21,14 +21,14 @@ public class UserService : IUserService
 
             if (users.Count == 0)
             {
-                throw new InvalidOperationException("La lista de usuarios está vacía.");
+                throw new InvalidOperationException("The user list is empty.");
             }
 
             return users;
         }
         catch (Exception ex)
         {
-            throw new InvalidOperationException("Ocurrió un error al consultar los usuarios.", ex);
+            throw new InvalidOperationException("An error occurred while fetching the users.", ex);
         }
     }
 
@@ -40,7 +40,7 @@ public class UserService : IUserService
 
             if (users.Any(x => x.Username.Equals(userDTO.Username, StringComparison.CurrentCultureIgnoreCase)))
             {
-                throw new InvalidOperationException("El nombre de usuario ya existe.");
+                throw new InvalidOperationException("The username already exists.");
             }
 
             User newUser = new User
@@ -54,7 +54,7 @@ public class UserService : IUserService
         }
         catch (Exception ex)
         {
-            throw new InvalidOperationException("Ocurrió un error al agregar el usuario.", ex);
+            throw new InvalidOperationException("An error occurred while adding the user.", ex);
         }
     }
 }
