@@ -21,7 +21,7 @@ public class WineService : IWineService
 
             if (wines.Count == 0)
             {
-                throw new InvalidOperationException("El inventario de vinos está vacío."); //
+                throw new InvalidOperationException("El inventario de vinos está vacío.");
             }
 
             return wines;
@@ -40,7 +40,7 @@ public class WineService : IWineService
 
             if (inventory.Any(x => x.Name.Equals(wineDTO.Name, StringComparison.CurrentCultureIgnoreCase)))
             {
-                throw new InvalidOperationException("El vino que quieres agregar ya se encuentra en el inventario."); //
+                throw new InvalidOperationException("El vino que quieres agregar ya se encuentra en el inventario.");
             }
 
             Wine newWine = new Wine
@@ -59,6 +59,47 @@ public class WineService : IWineService
         catch (Exception ex)
         {
             throw new InvalidOperationException("Ocurrió un error al agregar un vino al inventario.", ex);
+        }
+    }
+
+    public List<Wine> GetWinesByVariety(string variety)
+    {
+        try
+        {
+            if (string.IsNullOrEmpty(variety))
+            {
+                throw new InvalidOperationException("Debe indicar la variedad del vino.");
+            }
+
+            var wines = _wineRepository.GetWinesByVariety(variety);
+
+            if (wines.Count == 0)
+            {
+                throw new InvalidOperationException("No se encuentra en el inventario un vino de esa variedad.");
+            }
+
+            return wines;
+        }
+        catch (Exception ex)
+        {
+            throw new InvalidOperationException("Ocurrió un error al consultar el vino.", ex);
+        }
+    }
+
+    public void UpdateStockById(int wineId, int newStock)
+    {
+        try
+        {
+            if (newStock < 0)
+            {
+                throw new ArgumentException("El stock no puede ser negativo.");
+            }
+
+            _wineRepository.UpdateStockById(wineId, newStock);
+        }
+        catch (Exception ex)
+        {
+            throw new InvalidOperationException("Ocurrió un error al actualizar el stock del vino.", ex);
         }
     }
 }

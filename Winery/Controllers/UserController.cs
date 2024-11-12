@@ -1,11 +1,13 @@
-﻿using Common.Services;
-using Data.DTO_s;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Common.Services;
+using Data.DTO_s;
 
 namespace Winery.Controllers;
 
 [ApiController]
 [Route("api/users")]
+[Authorize]
 public class UserController : ControllerBase
 {
     private readonly IUserService _userService;

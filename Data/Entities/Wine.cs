@@ -5,7 +5,7 @@ public class Wine
     public int Id { get; set; }
     public required string Name { get; set; }
     public required string Variety { get; set; }
-    public required int Year { get; set; }
+    public int Year { get; set; }
     public required string Region { get; set; }
     public List<Tasting> Tastings { get; set; } = new List<Tasting>();
 
