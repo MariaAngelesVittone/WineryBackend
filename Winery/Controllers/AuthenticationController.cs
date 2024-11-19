@@ -22,36 +22,38 @@ public class AuthenticationController : ControllerBase
 
     }
 
-    [HttpPost("authenticate")]
-    public ActionResult<string> Autenticar(CredentialsDTO credentialsDto)
+    [HttpPost]
+    [Route("Authenticate")]
+    public ActionResult<string> Auth(CredentialsDTO credentialsDTO)
     {
-        var user = _userRepository.ValidateUser(credentialsDto);
+        var user = _userRepository.ValidateUser(credentialsDTO);
 
         if (user is null)
-            return Unauthorized();
-
-        var securityPassword = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_config["Authentication:SecretForKey"]));
-
-        var credentials = new SigningCredentials(securityPassword, SecurityAlgorithms.HmacSha256);
-
-        var claimsForToken = new List<Claim>
         {
-            new Claim("sub", user.Id.ToString()),
-            new Claim("given_name", user.Name),
-            new Claim("family_name", user.LastName)
-        };
+            return Forbid();
+        }
 
-        var jwtSecurityToken = new JwtSecurityToken(
-          _config["Authentication:Issuer"],
-          _config["Authentication:Audience"],
-          claimsForToken,
-          DateTime.UtcNow,
-          DateTime.UtcNow.AddHours(1),
-          credentials);
+        var claims = new List<Claim>
+    {
+        new Claim("id", user.Id.ToString()),
+        new Claim("username", user.Username),
+        new Claim("fullname", $"{user.Name} {user.LastName}")
+    };
 
-        var tokenToReturn = new JwtSecurityTokenHandler()
-            .WriteToken(jwtSecurityToken);
+        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+        var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
+        var tokenDescriptor = new JwtSecurityToken(
+            issuer: _config["Jwt:Issuer"],
+            audience: _config["Jwt:Audience"],
+            claims: claims,
+            expires: DateTime.Now.AddMinutes(720),
+            signingCredentials: credentials);
 
-        return Ok(tokenToReturn);
+        var jwt = new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
+
+        return Ok(new
+        {
+            AccessToken = jwt
+        });
     }
 }
