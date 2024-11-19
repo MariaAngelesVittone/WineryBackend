@@ -52,8 +52,6 @@ public class WineService : IWineService
                 Stock = wineDTO.Stock
             };
 
-            newWine.Id = inventory.Count != 0 ? inventory.Max(w => w.Id) + 1 : 1;
-
             _wineRepository.AddWine(newWine);
         }
         catch (Exception ex)

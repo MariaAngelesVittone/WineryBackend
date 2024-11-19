@@ -45,7 +45,6 @@ public class UserService : IUserService
 
             User newUser = new User
             {
-                Id = users.Count != 0 ? users.Max(w => w.Id) + 1 : 1,
                 Username = userDTO.Username,
                 Password = userDTO.Password,
             };

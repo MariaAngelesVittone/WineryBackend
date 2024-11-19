@@ -32,10 +32,12 @@ builder.Services
 // Servicios
 builder.Services.AddScoped<IWineService, WineService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ITastingService, TastingService>();
 
 // Repositorios
 builder.Services.AddScoped<IWineRepository, WineRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ITastingRepository, TastingRepository>();
 
 builder.Services.AddDbContext<WineryContext>(dbContextOptions => dbContextOptions.
 UseSqlite(builder.Configuration["ConnectionStrings:WineryAPIDBConnectionString"]));

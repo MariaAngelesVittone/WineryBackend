@@ -4,8 +4,9 @@ namespace Data.DTO_s;
 
 public class CredentialsDTO
 {
-    [Required]
+    [Required(ErrorMessage = "Username is required.")]
     public string Username { get; set; } = string.Empty;
-    [Required]
+
+    [Required(ErrorMessage = "Username is required.")]
     public string Password { get; set; } = string.Empty;
 }

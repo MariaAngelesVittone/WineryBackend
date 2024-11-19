@@ -1,11 +1,13 @@
 ﻿using Common.Services;
 using Data.DTO_s;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Winery.Controllers;
 
 [ApiController]
 [Route("api/tastings")]
+[Authorize]
 public class TastingController : ControllerBase
 {
     private readonly ITastingService _tastingService;
