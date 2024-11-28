@@ -24,7 +24,7 @@ public class AuthenticationController : ControllerBase
 
     [HttpPost]
     [Route("Authenticate")]
-    public ActionResult<string> Auth(CredentialsDTO credentialsDTO)
+    public IActionResult Auth(CredentialsDTO credentialsDTO)
     {
         var user = _userRepository.ValidateUser(credentialsDTO);
 
@@ -37,23 +37,22 @@ public class AuthenticationController : ControllerBase
     {
         new Claim("id", user.Id.ToString()),
         new Claim("username", user.Username),
-        new Claim("fullname", $"{user.Name} {user.LastName}")
     };
 
-        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
-        var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
-        var tokenDescriptor = new JwtSecurityToken(
-            issuer: _config["Jwt:Issuer"],
-            audience: _config["Jwt:Audience"],
-            claims: claims,
-            expires: DateTime.Now.AddMinutes(720),
-            signingCredentials: credentials);
+        var securityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_config["Jwt:Key"]));
+        var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+        var jwtSecurityToken = new JwtSecurityToken( //agregar using System.IdentityModel.Tokens.Jwt; Acá es donde se crea el token con toda la data que le pasamos antes.
+                   _config["Jwt:Issuer"],
+                   _config["Jwt:Audience"],
+                   claims,
+                   DateTime.UtcNow,
+                   DateTime.UtcNow.AddHours(1),
+                   credentials);
 
-        var jwt = new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
+        var tokenToReturn = new JwtSecurityTokenHandler() //Pasamos el token a string
+            .WriteToken(jwtSecurityToken);
 
-        return Ok(new
-        {
-            AccessToken = jwt
-        });
+
+        return Ok(tokenToReturn);
     }
 }

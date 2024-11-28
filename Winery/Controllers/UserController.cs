@@ -7,7 +7,7 @@ namespace Winery.Controllers;
 
 [ApiController]
 [Route("api/users")]
-[Authorize]
+//[Authorize]
 public class UserController : ControllerBase
 {
     private readonly IUserService _userService;

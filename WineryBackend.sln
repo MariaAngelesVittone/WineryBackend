@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Winery", "Winery\Winery.csproj", "{7BEC42D0-64CF-4290-8B9A-C7CA2BBC2FCE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Winery", "Winery\Winery.csproj", "{7BEC42D0-64CF-4290-8B9A-C7CA2BBC2FCE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{8988323F-5392-43AA-BC61-2EF49F71F699}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Common\Services.csproj", "{8988323F-5392-43AA-BC61-2EF49F71F699}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{3D7162B8-CB2F-44CA-B612-EF1E8248C621}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", "{3D7162B8-CB2F-44CA-B612-EF1E8248C621}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
